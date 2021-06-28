@@ -1,0 +1,42 @@
+1.自定义View 为什么自定义（Activity PhoneWindow DectVier）
+Android 系统内置View无法实现我们的需求
+处于性能考虑
+
+2.自定义view  自定义viewGroup
+
+Match_parent wrap_content
+
+3.展示动画  交互动画
+
+4.RGB占内存
+
+ViewRootImpl requesetLayout  setView
+
+5.ScrollView 嵌套 listView问题？
+
+measure
+1.系统为什么要有measure过程？自适应大小  measureSpec
+
+MeasureSpec  getMode()  getSize()
+ViewGroup getChildMeasrueSpec()
+
+LayoutParams(布局 xml)
+
+
+自定义ViewGroup重写 onMeasure 和onLayout
+
+onMeasure:
+1确定自身的大小
+2确定子view的大小
+
+尺寸：200dp ，match_parent wrap_content
+
+流程：
+1.ViewGroup 开始测试自身的大小
+2.为每个子View计算测量的限制信息
+3.把上一步确定的限制信息，传递给每一个子View,然后子
+View开始Measure自己的尺寸
+4.获取子view测量完成后的尺寸
+5.ViewGroup根据自身的情况，计算自己的尺寸
+6.保存自己的尺寸
+
