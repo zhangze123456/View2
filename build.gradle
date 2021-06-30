@@ -1,24 +1,97 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         google()
         jcenter()
+        mavenCentral()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        //友盟
+        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'http://developer.huawei.com/repo/' }
+//       阿里人脸识别
+        flatDir {
+            dirs '../libs'
+        }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.1"
+        classpath 'com.android.tools.build:gradle:3.5.3'
+//        classpath 'com.android.tools.build:gradle:3.3.0'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        //ze.zhang IJK
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+        classpath 'com.huawei.agconnect:agcp:1.0.0.300'
+    }
+    subprojects {
+        project.configurations.all {
+            resolutionStrategy.eachDependency { details ->
+                if (details.requested.group == 'androidx.media'
+                        && !details.requested.name.contains('androidx') ) {
+                    details.useVersion "1.0.1"
+                }
+
+                if (details.requested.group == 'androidx.core'
+                        && !details.requested.name.contains('androidx')) {
+                    details.useVersion "1.2.0"
+                }
+
+                if (details.requested.group == 'androidx.transition'
+                        && !details.requested.name.contains('androidx')) {
+                    details.useVersion "1.2.0"
+                }
+                if (details.requested.group == 'androidx.coordinatorlayout'
+                        && !details.requested.name.contains('androidx')) {
+                    details.useVersion "1.1.0"
+                }
+            }
+        }
     }
 }
 
 allprojects {
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
+//        URL HMSMaven =new URL('http://developer.huawei.com/repo')
+//        maven {url HMSMaven}
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        maven { url 'http://developer.huawei.com/repo/' }
     }
 }
+ext {
+    constraintLayout = '1.1.3'
 
+    versionTarget = 27
+    versionCompiler = 27
+    versionBuildTool = '27.1.1'
+
+    versionCodeNum = 232
+    versionNameString = '4.5.1'
+
+    javaSourceCompatibility = JavaVersion.VERSION_1_8
+    javaTargetCompatibility = JavaVersion.VERSION_1_8
+}
+
+//rootProject.buildDir = '../build'
+//subprojects {
+//    project.buildDir = "${rootProject.buildDir}/${project.name}"
+//}
+//subprojects {
+//    project.evaluationDependsOn(':app')
+//}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

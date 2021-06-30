@@ -21,7 +21,13 @@ public  class MyView extends View {
     //测量 计算出view大小
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //1测量自身
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        //为每个子view计算测量的限制 信息
+        int widthMode=MeasureSpec.getMode(widthMeasureSpec);
+        int widthMeasure=MeasureSpec.getSize(widthMeasureSpec);
+        int heightMode=MeasureSpec.getMode(widthMeasureSpec);
+        int heightMeasure=MeasureSpec.getSize(widthMeasureSpec);
     }
 
     //view在viewgroup位置
